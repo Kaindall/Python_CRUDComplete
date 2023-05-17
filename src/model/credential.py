@@ -2,7 +2,7 @@ from configparser import ConfigParser
 
 config = ConfigParser()
 
-configfile = r'src/controller/config.ini'
+configfile = r'src/model/config.ini'
 config.read(configfile)
 
 class credentials ():
