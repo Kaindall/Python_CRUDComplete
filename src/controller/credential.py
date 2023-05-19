@@ -2,10 +2,10 @@ from configparser import ConfigParser
 
 config = ConfigParser()
 
-configfile = r'src/model/config.ini'
+configfile = r'src/controller/config.ini'
 config.read(configfile)
 
-class credentials ():
+class credentials:
     def __init__(self):
         self.user = config["sqlacess"]["user"]
         self.password = config["sqlacess"]["password"]
@@ -17,5 +17,6 @@ class credentials ():
         self.database = config["sqlacess"]["database"]
 
 if __name__ == "__main__":
-    crd = credentials()
-    crd.dbChange("NewDatabase")
+    creds = credentials()
+    creds.dbChange("NewDatabase")
+    
