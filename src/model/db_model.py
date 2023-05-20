@@ -1,6 +1,6 @@
 import mysql.connector
 from mysql.connector import errorcode
-from .credential import credentials
+from credential import credentials
 
 
 creds = credentials()
@@ -25,3 +25,20 @@ class bdd:
         
       else:
         return None, print(err)
+      
+if __name__ == "__main__":
+  DB_NAME = "eshopping"
+  TABLES = {}
+  
+  TABLES["Cliente"] = (
+    "CREATE TABLE 'Client' ("
+    "idClient int NOT NULL AUTO_INCREMENT,"
+    "nome varchar(45) NOT NULL,"
+    "document int(15) NOT NULL,"
+    "adress varchar(200) NOT NULL,"
+    "email varchar(70),"
+    "cellphone int(12),"
+    "PRIMARY KEY ('idClient')"
+    ") engine=InnoDB")
+  
+    
