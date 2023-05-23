@@ -1,6 +1,7 @@
 import mysql.connector
 from mysql.connector import errorcode
-from .credential import credentials
+
+from model.credential import credentials
 
 
 creds = credentials()
@@ -31,10 +32,10 @@ class bdd:
   #create Default param to call dbChange from credentials and update config.ini
   def select_db(self, db_name, force=False):
     try:
-      self.act(f"USE {db_name}")
+      self.act.execute(f"USE {db_name}")
       self.cnx.database = db_name
       
-    except mysql.connector.errorcode as err:
+    except mysql.connector.Error as err:
       if (err.errno == errorcode.ER_BAD_DB_ERROR) & (force == True):
         self.create_db(db_name)
         self.cnx.database = db_name
