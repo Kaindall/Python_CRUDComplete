@@ -8,9 +8,12 @@ sys.path.insert(0, parent_dir)
 
 from model.db_model import bdd
 
-cursor = bdd().cnx.cursor()
+db1 = bdd()
 
-print ("Sucesso!")
+db1.select_db("eshop")
+
+print ("Sucess!")
+
 
 
 
