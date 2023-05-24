@@ -10,7 +10,13 @@ from model.db_model import bdd
 
 db1 = bdd()
 
-db1.delete_db("eshop")
+DB_NAME = "eshop"
+
+db1.delete_db(DB_NAME)
+
+db1.select_db(DB_NAME, force=True)
+
+TABLES = []
 
 print ("Sucess!")
 

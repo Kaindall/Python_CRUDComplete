@@ -38,7 +38,6 @@ class bdd:
 
       else:
         return None, print(err)
-  
 
   def select_db(self, db_name, force=False, default=False):
     """
@@ -46,7 +45,7 @@ class bdd:
     Args:
       db_name: a string containing database's name to select
       force: a boolean, true indicate to create a new database if inputed value doesn't exist
-      default: a boolean,true indicate to rewrite config.ini as automatic opened database with Connect
+      default: a boolean, true indicate to rewrite config.ini with this database, turning it as a automatic connection when called Connect
     Returns:
       A print of result and allow next queries inside the database
       """
@@ -69,7 +68,6 @@ class bdd:
     if default == True:
       creds.dbChange(db=db_name, default=True)
     
-
   def create_db(self, db_name):
     """
     Create a database.
@@ -83,10 +81,40 @@ class bdd:
     except mysql.connector.Error as err:
       print (f"Database not created: '{err}'")
 
-
   def delete_db(self, db_name):
     self.act.execute(f"DROP DATABASE IF EXISTS {db_name}")
     print(f"Database '{db_name}' deleted sucessfully!")
 
+  def create_table(self, query):
+    """This method create a table inside the selected database
+    Args:
+      query: This can be a string, dict, tuple or list with the value of a string containing the SQL commandline to create a table
+    Obs: We recommend to put in the end 'ENGINE=InnoDB'
+    
+    Example:
+      '''
+      CREATE TABLE Test9 (
+      idClient int NOT NULL AUTO_INCREMENT,
+      name varchar(45) NOT NULL,
+      document int NOT NULL,
+      PRIMARY KEY (idClient)
+      ) ENGINE=InnoDB'''
+    """
+    
+    if (type(query) != str) & (len(query) > 1):
+      if type(query) == dict:
+        for table in query.values():
+          self.act.execute(table)
+      
+      else:
+        for table in query:
+          self.act.execute(table)
+    
+    else:
+      self.act.execute(query)
+      print (query)
+      print (type(query))
   
+
+    
     
