@@ -10,7 +10,7 @@ from model.db_model import bdd
 
 db1 = bdd()
 
-db1.select_db("eshop")
+db1.delete_db("eshop")
 
 print ("Sucess!")
 
