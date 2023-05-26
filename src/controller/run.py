@@ -14,9 +14,9 @@ DB_NAME = "eshop"
 
 db1.delete_db(DB_NAME)
 
+
 db1.select_db(DB_NAME, force=True)
 
-TABLES = []
 
 print ("Sucess!")
 
