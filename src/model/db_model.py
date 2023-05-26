@@ -114,7 +114,13 @@ class bdd:
       self.act.execute(query)
       print (query)
       print (type(query))
-  
 
+#insert a new row, create a method to return the id of the created row or not
+  def insert_row(self):
+    pass
+
+#use an id to update a row
+  def update_row(self):
+    pass
     
     
