@@ -12,11 +12,26 @@ db1 = bdd()
 
 DB_NAME = "eshop"
 
-db1.delete_db(DB_NAME)
-
 
 db1.select_db(DB_NAME, force=True)
 
+TABLES = {}
+TABLES["client"] = ("""CREATE TABLE IF NOT EXISTS client (
+	idClient INT AUTO_INCREMENT PRIMARY KEY,
+    Cname VARCHAR(15),
+    Csurname VARCHAR (45)
+) ENGINE=InnoDB""")
+
+db1.create_table(TABLES['client'])
+
+cols = ("Cname", "Csurname")
+data = ("Amanda", "Zanetti")
+
+#print (f'{cols[0]}, {cols[1]}')
+
+db1.insert_row("client", cols, data)
+
+db1.cnx.commit()
 
 print ("Sucess!")
 
