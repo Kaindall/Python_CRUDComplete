@@ -93,7 +93,7 @@ class bdd:
     
     Example:
       '''
-      CREATE TABLE Test9 (
+      CREATE TABLE IF NOT EXISTS Test9 (
       idClient int NOT NULL AUTO_INCREMENT,
       name varchar(45) NOT NULL,
       document int NOT NULL,
@@ -113,15 +113,22 @@ class bdd:
     else:
       self.act.execute(query)
 
-#insert a new row, create a method to return the id of the created row or not
-  def insert_row(self, table, columns, data):
-    print(f"""INSERT INTO {table}
-    {columns}
-    VALUES{data}""")
-        
-    self.act.execute(f"""INSERT INTO {table}({columns[0]}, {columns[1]})
-        VALUES{data}""")
-    pass
+  def insert_row(self, table, columns, data, recoverid=False):
+    if type(data[0]) == str:
+      self.act.execute(f"""INSERT INTO {table}({columns[0]}, {columns[1]}) VALUES{data}""")
+      if recoverid == True:
+          return self.act.lastrowid
+    
+    else:
+      id_list = []
+      for value in data:
+        self.act.execute(f"""INSERT INTO {table}({columns[0]}, {columns[1]}) VALUES{value}""")
+        if recoverid == True:
+          id_list.append(self.act.lastrowid)
+      return id_list
+
+
+
 
 #use an id to update a row
   def update_row(self):
