@@ -115,23 +115,30 @@ class bdd:
 
   def insert_row(self, table, columns, data, recoverid=False):
     if type(data[0]) == str:
-      self.act.execute(f"""INSERT INTO {table}({columns[0]}, {columns[1]}) VALUES{data}""")
+      self.act.execute(f"""INSERT INTO {table}{for col in enumerate(columns)}{columns[0]}, {columns[1]}) VALUES{data}""")
       if recoverid == True:
           return self.act.lastrowid
     
     else:
-      id_list = []
-      for value in data:
-        self.act.execute(f"""INSERT INTO {table}({columns[0]}, {columns[1]}) VALUES{value}""")
-        if recoverid == True:
-          id_list.append(self.act.lastrowid)
-      return id_list
-
-
+      try:
+        id_list = []
+        for value in data:
+          self.act.execute(f"""INSERT INTO {table}({columns[0]}, {columns[1]}) VALUES{value}""")
+          if recoverid == True:
+            id_list.append(self.act.lastrowid)
+        return id_list
+      
+      except:
+        print ("Invalid format inputed. Please input an iterable object.")
 
 
 #use an id to update a row
-  def update_row(self):
+  def update_rowByID(self, id):
     pass
+  
+  def query_db(self, query):
+    return self.act.execute(query)
+    
+    
     
     

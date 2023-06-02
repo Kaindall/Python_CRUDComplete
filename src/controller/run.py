@@ -19,27 +19,22 @@ TABLES = {}
 TABLES["client"] = ("""CREATE TABLE IF NOT EXISTS client (
 	idClient INT AUTO_INCREMENT PRIMARY KEY,
     Cname VARCHAR(15),
-    Csurname VARCHAR (45)
+    Csurname VARCHAR (45),
+    Expenses FLOAT,
+    Gender VARCHAR(6),
+    Nationality VARCHAR(40)
 ) ENGINE=InnoDB""")
 
 db1.create_table(TABLES['client'])
 
-cols = ("Cname", "Csurname")
-data = (("Wesley", "Zacarias"), ("George", "Zacarias"))
+cols = ("Cname", "Csurname", "Expenses", "Gender", "Nationality")
 
-        
-#print (f'{cols[0]}, {cols[1]}')
+with open ("src/controller/client_data.csv", 'r') as data:
+    for row in data:
+        db1.insert_row("client", cols, str(data))
 
-
-last_id = db1.insert_row("client", cols, data, recoverid=True)
-
-
-print (last_id)
  
 #db1.cnx.commit()
 
 print ("Sucess!")
-
-
-
 
