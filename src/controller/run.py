@@ -22,19 +22,17 @@ TABLES["client"] = ("""CREATE TABLE IF NOT EXISTS client (
     Csurname VARCHAR (45),
     Expenses FLOAT,
     Gender VARCHAR(6),
-    Nationality VARCHAR(40)
+    Nationality VARCHAR(75)
 ) ENGINE=InnoDB""")
 
 db1.create_table(TABLES['client'])
 
 cols = ("Cname", "Csurname", "Expenses", "Gender", "Nationality")
 
-with open ("src/controller/client_data.csv", 'r') as data:
+with open ("src/controller/client_data.csv", mode='r', encoding='utf8') as data:    
     for row in data:
-        db1.insert_row("client", cols, str(data))
-
- 
-#db1.cnx.commit()
-
+        db1.insert_row('client', cols, row)
+    
+    db1.cnx.commit()
 print ("Sucess!")
 

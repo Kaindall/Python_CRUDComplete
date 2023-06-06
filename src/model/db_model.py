@@ -114,25 +114,38 @@ class bdd:
       self.act.execute(query)
 
   def insert_row(self, table, columns, data, recoverid=False):
-    cols = ""
-
+    cols_lenght = ""
     for col in columns:
-        if cols != "":
-            cols = cols+f', {col}'
+        if cols_lenght == "":
+            cols_lenght = cols_lenght+col
+        elif cols_lenght != "":
+            cols_lenght = cols_lenght+f', {col}'
+            
+      
+    if type(data) == str:
+      r = data.split(sep=',')
+      for e, element in enumerate(r):
+          try:
+              r[e] = element.replace('\n', '')
+          except:
+              pass
+          try:
+              r[e] = int(element)
+          except:
+              pass
+      
+      r = tuple(r)
         
-        elif cols == "":
-            cols = cols+col
+      self.act.execute(f"""INSERT INTO {table}({cols_lenght}) VALUES{r}""")
     
-    if type(data[0]) == str:
-      self.act.execute(f"""INSERT INTO {table}{cols}) VALUES{data}""")
       if recoverid == True:
           return self.act.lastrowid
-    
+        
     else:
       try:
         id_list = []
         for value in data:
-          self.act.execute(f"""INSERT INTO {table}({cols}) VALUES{value}""")
+          self.act.execute(f"""INSERT INTO {table}({cols_lenght}) VALUES{value}""")
           if recoverid == True:
             id_list.append(self.act.lastrowid)
         return id_list
