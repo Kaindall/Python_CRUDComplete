@@ -155,7 +155,7 @@ class bdd:
 
 
 #use an id to update a row
-  def update_rowByID(self, id):
+  def update_row(self, table, columns, values):
     pass
   
   def query_db(self, query):
